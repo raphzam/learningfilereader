@@ -7,12 +7,9 @@ public class Application {
 	public static void main(String[] args) {
 
 		File file = new File("myfile.txt");
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
 
-		try {
-			fileReader = new FileReader(file);
-			bufferedReader = new BufferedReader(fileReader);
+		try (FileReader fileReader = new FileReader(file);
+				BufferedReader bufferedReader = new BufferedReader(fileReader);) {
 
 			String line = bufferedReader.readLine();
 
@@ -27,20 +24,7 @@ public class Application {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Problem reading the file " + file.getName());
-		} finally {
-			try {
-				if (bufferedReader != null) {
-					bufferedReader.close();
-				}
-				if (fileReader != null) {
-					fileReader.close();
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Unable to close file" + file.getName());
-			}
-		}
-
+		} 
 	}
 
 }
